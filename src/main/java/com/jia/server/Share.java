@@ -31,6 +31,10 @@ public class Share {
     public static HashMap<String, String> loginedUsers = new HashMap<String, String>();
 
 
+    public static void temp(){
+        users.put("jia", "666");
+    }
+
     /**
      * 初始化共享数据
      */

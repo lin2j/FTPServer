@@ -18,7 +18,9 @@ public class FTPServer {
     public FTPServer(Integer port)throws Exception{
         serverSocket = new ServerSocket(port);
         // 初始化线程共享数据
-        Share.init();
+       // Share.init();
+        Share.temp();
+        System.out.println(Share.users);
     }
 
     public void listen() throws Exception{
@@ -34,6 +36,7 @@ public class FTPServer {
 
     public static void main(String[] args) {
         try{
+            System.out.println("*** FTPServer started ***");
             FTPServer ftpServer = new FTPServer(21);
             ftpServer.listen();
         }catch (Exception e){
