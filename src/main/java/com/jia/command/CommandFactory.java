@@ -13,6 +13,7 @@ public class CommandFactory {
         switch (type){
             case "USER" : return new UserCommand();
             case "PASS" : return new PassCommand();
+            case "DIR"  : return new ListCommand();
             case "LIST" : return new ListCommand();
             case "PORT" : return new PortCommand();
             case "QUIT" : return new QuitCommand();

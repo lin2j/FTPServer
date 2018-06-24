@@ -16,9 +16,9 @@ public class UserCommand implements Command {
         String response = null;
         if(Share.users.containsKey(data)){
             ControllerThread.USER.set(data);
-            response = "331 用户存在，需要密码";
+            response = "331 User exists, need a password";
         }else{
-            response = "501 参数错误";
+            response = "501 Argument error";
         }
         out.println(response);
         out.flush();

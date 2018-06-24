@@ -2,6 +2,7 @@ package com.jia.command;
 
 import com.jia.thread.ControllerThread;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
@@ -18,5 +19,5 @@ public interface Command {
      * @param writer 输出流
      * @param thread 命令控制线程
      */
-    void execute(String data, PrintWriter out, ControllerThread thread);
+    void execute(String data, PrintWriter out, ControllerThread thread) throws IOException;
 }

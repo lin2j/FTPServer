@@ -8,6 +8,7 @@ import com.jia.server.Share;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * @author jia
@@ -16,12 +17,14 @@ import java.net.Socket;
  **/
 public class ControllerThread extends Thread{
 
+    public static Integer count = 0;
+
     private Socket socket = null;
 
     /**
      * 当前用户所对应的用户
      */
-    public static final ThreadLocal<String> USER = new ThreadLocal<String>();
+    public static final ThreadLocal<String> USER = new ThreadLocal<>();
 
     /**
      * 标记用户是否已经登录
@@ -29,9 +32,51 @@ public class ControllerThread extends Thread{
     private boolean isLogined = false;
 
     /**
+     * 要建立数据链接的主机ip
+     */
+    public String targetIP = null;
+
+    /**
+     * 要建立数据链接的主机端口
+     */
+    public Integer targetPort = null;
+
+    /**
      * 当前目录
      */
-    private String nowDir = Share.nowDir;
+    private String nowDir = Share.nowDir.toString();
+
+    public String getTargetIP() {
+        return targetIP;
+    }
+
+    public void setTargetIP(String targetIP) {
+        this.targetIP = targetIP;
+    }
+
+    public Integer getTargetPort() {
+        return targetPort;
+    }
+
+    public void setTargetPort(Integer targetPort) {
+        this.targetPort = targetPort;
+    }
+
+    public String getNowDir() {
+        return nowDir;
+    }
+
+    public void setNowDir(String nowDir) {
+        this.nowDir = nowDir;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     public ControllerThread(Socket socket) {
         this.socket = socket;
@@ -55,7 +100,7 @@ public class ControllerThread extends Thread{
             String[] commandStrs = null;
             while(true) {
                 if (count == 0) {
-                    out.println("220 服务器就绪");
+                    out.println("220 Server readiness");
                     out.flush();
                     count++;
                 }
@@ -73,13 +118,15 @@ public class ControllerThread extends Thread{
                         }
                         command.execute(data, out, this);
                     }else{
-                        out.println("532 执行该命令需要登录");
+                        out.println("532 Command need login");
                     }
                 }else{
-                    out.println("502 输入指令有误");
+                    out.println("502 Command not found");
                     out.flush();
                 }
             }
+        }catch (SocketException e){
+            System.out.println("Socket closed");
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -5,6 +5,8 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class Share {
     /**
      * 登录后默认的目录
      */
-    public static String nowDir = null;
+    public static StringBuilder nowDir = new StringBuilder();
 
     /**
      * 用户列表
@@ -30,36 +32,39 @@ public class Share {
      */
     public static HashMap<String, String> loginedUsers = new HashMap<String, String>();
 
-
-    public static void temp(){
-        users.put("jia", "666");
-    }
-
     /**
      * 初始化共享数据
      */
     public static void init(){
-        String path = "/server.iml";
-
+        String projRootPath = System.getProperty("user.dir");
+        String xmlPath = projRootPath + "/src/main/resources/server.xml";
+        Path path = Paths.get(projRootPath);
         try{
-            // 读取server.iml配置文件
-            File serverIml = new File(path);
+            // 读取server.xml文件, server.xml 文件放在项目同级目录下
+            String pathPar = path.getParent().toString();
+            File serverXml = new File(pathPar + "/server.xml");
             SAXBuilder builder = new SAXBuilder();
-            Document parse = builder.build(serverIml);
+            Document parse = builder.build(serverXml);
             Element root = parse.getRootElement();
 
             // 初始化登陆后用户所在的目录
-            nowDir = root.getChildText("path");
+            nowDir.append(root.getChildText("path"));
+            nowDir.append("/FtpDir");
+            nowDir.append("/");
+            File ftpDir = new File(nowDir.toString());
+            if(!ftpDir.exists()){
+                ftpDir.mkdir();
+            }
 
             // 初始化用户列表
             Element userE = root.getChild("users");
-            List<Element> userEC = userE.getChildren();
+            List<Element> userEC = userE.getChildren("user");
             String name = null;
             String password = null;
-            System.out.println("初始化用户列表···");
+            System.out.println("Initial user list...");
             for (Element user : userEC){
-                name = user.getChildText("Name");
-                password = user.getChildText("Password");
+                name = user.getChildText("name");
+                password = user.getChildText("pass");
                 users.put(name, password);
             }
         }catch (Exception e){

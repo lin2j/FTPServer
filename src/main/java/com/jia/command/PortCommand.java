@@ -2,8 +2,8 @@ package com.jia.command;
 
 import com.jia.thread.ControllerThread;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 /**
  * @author jia
@@ -11,7 +11,18 @@ import java.io.Writer;
  **/
 public class PortCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
-
+    public void execute(String data, PrintWriter out, ControllerThread thread) throws IOException {
+        String[] ipAndPort = data.split(",");
+        // ip 地址
+        StringBuilder ip = new StringBuilder();
+        ip.append(ipAndPort[0]).append(".").append(ipAndPort[1]).append(".");
+        ip.append(ipAndPort[2]).append(".").append(ipAndPort[3]);
+        // 端口
+        Integer port = Integer.valueOf(ipAndPort[4])*256 + Integer.valueOf(ipAndPort[5]);
+        // 记录 ip 和端口
+        thread.setTargetIP(ip.toString());
+        thread.setTargetPort(port);
+        out.println("200 Successfully");
+        out.flush();
     }
 }

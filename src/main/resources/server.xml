@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <path>/null</path>
+    <users>
+        <user>
+            <name>win</name>
+            <pass>777</pass>
+        </user>
+        <user>
+            <name>jia</name>
+            <pass>666</pass>
+        </user>
+    </users>
+</root>

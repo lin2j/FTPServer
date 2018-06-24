@@ -3,6 +3,7 @@ package com.jia.command;
 import com.jia.server.Share;
 import com.jia.thread.ControllerThread;
 
+import java.io.File;
 import java.io.PrintWriter;
 
 /**
@@ -20,9 +21,14 @@ public class PassCommand implements Command {
         if(pass.equals(data)){
             Share.loginedUsers.put(user, pass);
             thread.setLogined(true);
-            respone.append("203 User ").append(user).append("登录");
+            // 创建用户文件夹
+            File userDir = new File(Share.nowDir.toString() + user);
+            if(!userDir.exists()){
+                userDir.mkdir();
+            }
+            respone.append("203 User ").append(user).append(" login!");
         }else{
-            respone.append("530 密码错误，无法登录");
+            respone.append("530 bad password");
         }
         out.println(respone.toString());
         out.flush();
