@@ -19,7 +19,6 @@ public class FTPServer {
         serverSocket = new ServerSocket(port);
         // 初始化线程共享数据
         Share.init();
-        System.out.println(Share.users);
     }
 
     public void listen() throws Exception{

@@ -105,6 +105,8 @@ public class ControllerThread extends Thread{
                     count++;
                 }
                 commandStr = clientInfo.readLine();
+                System.out.print("Instructions from client : ");
+                System.out.println(commandStr);
                 commandStrs = commandStr.split(" ");
                 // 来自客户端的命令，以空格为标准分割成几部分，第一部分应当是命令
                 commandStr = commandStrs[0];
@@ -118,7 +120,7 @@ public class ControllerThread extends Thread{
                         }
                         command.execute(data, out, this);
                     }else{
-                        out.println("532 Command need login");
+                        out.println("532 Not logged in");
                     }
                 }else{
                     out.println("502 Command not found");

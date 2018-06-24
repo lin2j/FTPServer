@@ -19,8 +19,7 @@ public class ListCommand implements Command {
     public void execute(String data, PrintWriter out, ControllerThread thread) {
 
         StringBuilder fileNames = new StringBuilder();
-        String userPath = Share.nowDir.toString();
-        userPath = userPath + ControllerThread.USER.get();
+        String userPath = thread.getNowDir();
         userPath = userPath +data ;
         File file = new File(userPath);
         String[] fileList = file.list();

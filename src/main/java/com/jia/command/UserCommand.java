@@ -16,6 +16,7 @@ public class UserCommand implements Command {
         String response = null;
         if(Share.users.containsKey(data)){
             ControllerThread.USER.set(data);
+            thread.setNowDir(thread.getNowDir() + data);
             response = "331 User exists, need a password";
         }else{
             response = "501 Argument error";

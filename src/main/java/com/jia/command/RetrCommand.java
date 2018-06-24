@@ -3,7 +3,6 @@ package com.jia.command;
 import com.jia.thread.ControllerThread;
 
 import java.io.PrintWriter;
-import java.io.Writer;
 
 /**
  * @author jia

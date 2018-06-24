@@ -20,6 +20,7 @@ public class CommandFactory {
             case "RETR" : return new RetrCommand();
             case "CWD"  : return new CwdCommand();
             case "STOR" : return new StoreCommand();
+            case "XPWD" : return new PWDCommand();
             default : return null;
         }
     }
