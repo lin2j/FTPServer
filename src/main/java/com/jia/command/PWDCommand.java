@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  **/
 public class PWDCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) throws IOException {
+    public void execute(String data, PrintWriter out, ControllerThread thread) {
         String response = "257 " + thread.getNowDir();
         out.println(response);
         out.flush();

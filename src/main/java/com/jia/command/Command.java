@@ -16,8 +16,8 @@ public interface Command {
     /**
      * 执行命令
      * @param data  命令后面的信息
-     * @param writer 输出流
+     * @param out 输出流
      * @param thread 命令控制线程
      */
-    void execute(String data, PrintWriter out, ControllerThread thread) throws IOException;
+    void execute(String data, PrintWriter out, ControllerThread thread) ;
 }
