@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.File;
@@ -14,15 +15,14 @@ public class DELECommand implements Command {
     @Override
     public void execute(String data, PrintWriter out, ControllerThread thread) {
         String response = null;
-        String fail = "220 File not exists";
         File file = new File(thread.getNowDir() + File.separator + data);
         if(!file.exists()){
-            response = fail;
+            response = FTPStateCode.FILE_NOT_FOUND.getMsg();
         }else{
             if(file.delete()){
-                response = "250 Delete success";
+                response = FTPStateCode.FILE_DELETE_SUCCESS.getMsg();
             }else {
-                response = fail;
+                response = FTPStateCode.COMMAND_NOT_IMPLEMENTED.getMsg();
             }
         }
         out.println(response);

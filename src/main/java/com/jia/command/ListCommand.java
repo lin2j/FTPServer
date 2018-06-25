@@ -1,12 +1,11 @@
 package com.jia.command;
 
-import com.jia.server.Share;
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
@@ -20,7 +19,7 @@ public class ListCommand implements Command {
 
         StringBuilder fileNames = new StringBuilder();
         String userPath = thread.getNowDir();
-        userPath = userPath +data ;
+        userPath = userPath + data ;
         File file = new File(userPath);
         String[] fileList = file.list();
         if(fileList != null) {
@@ -32,7 +31,7 @@ public class ListCommand implements Command {
 
         // 向客户端发送数据
         try {
-            out.println("150 open ascii mode");
+            out.println(FTPStateCode.STATUS_OKAY.getMsg());
             out.flush();
             Socket socket = new Socket(thread.getTargetIP(), thread.getTargetPort());
             socket.setSoTimeout(30000);

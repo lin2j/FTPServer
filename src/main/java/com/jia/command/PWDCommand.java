@@ -2,7 +2,6 @@ package com.jia.command;
 
 import com.jia.thread.ControllerThread;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**

@@ -1,10 +1,10 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 /**
  * @author jia
@@ -15,7 +15,7 @@ public class QuitCommand implements Command {
     @Override
     public void execute(String data, PrintWriter out, ControllerThread thread) {
         try{
-            out.println("221 Bye");
+            out.println(FTPStateCode.GOOD_BYE.getMsg());
             out.flush();
             out.close();
             thread.getSocket().close();

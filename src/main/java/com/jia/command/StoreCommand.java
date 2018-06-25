@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.*;
@@ -13,7 +14,7 @@ import java.net.Socket;
 public class StoreCommand implements Command {
     @Override
     public void execute(String data, PrintWriter out, ControllerThread thread) {
-        out.println("150 Binary data connection\r\n");
+        out.println(FTPStateCode.STATUS_OKAY.getMsg());
         out.flush();
         File file = new File(thread.getNowDir() + File.separator + data);
         try {
@@ -30,14 +31,14 @@ public class StoreCommand implements Command {
                 bw.newLine();
             }
             bw.flush();
-            out.println("226 Transfer complete");
+            out.println(FTPStateCode.FILE_ACTION_COMPLETED.getMsg());
             out.flush();
             dataIn.close();
             br.close();
             bw.close();
             socket.close();
         } catch (IOException e) {
-            out.println("226 Transmission interruption");
+            out.println(FTPStateCode.LOCAL_ERROR.getMsg());
         }
     }
 }

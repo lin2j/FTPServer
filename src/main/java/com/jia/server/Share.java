@@ -26,18 +26,17 @@ public class Share {
     /**
      * 用户列表
      */
-    public static HashMap<String, String> users = new HashMap<String, String>();
+    public static HashMap<String, String> users = new HashMap<>();
     /**
      * 已经登录的用户列表
      */
-    public static HashMap<String, String> loginedUsers = new HashMap<String, String>();
+    public static HashMap<String, String> loginedUsers = new HashMap<>();
 
     /**
      * 初始化共享数据
      */
     public static void init(){
         String projRootPath = System.getProperty("user.dir");
-        String xmlPath = projRootPath + "/src/main/resources/server.xml";
         Path path = Paths.get(projRootPath);
         try{
             // 读取server.xml文件, server.xml 文件放在项目同级目录下

@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
 import com.jia.thread.ControllerThread;
 
@@ -14,7 +15,7 @@ import java.io.PrintWriter;
 public class PassCommand implements Command {
     @Override
     public void execute(String data, PrintWriter out, ControllerThread thread) {
-        StringBuilder respone = new StringBuilder();
+        StringBuilder response = new StringBuilder();
         // 获取该用户的密码
         String user = ControllerThread.USER.get();
         String pass = Share.users.get(user);
@@ -26,11 +27,11 @@ public class PassCommand implements Command {
             if(!userDir.exists()){
                 userDir.mkdir();
             }
-            respone.append("203 User ").append(user).append(" login!");
+            response.append("203 User ").append(user).append(" login!");
         }else{
-            respone.append("530 bad password");
+            response.append(FTPStateCode.BAD_PASSWORD.getMsg());
         }
-        out.println(respone.toString());
+        out.println(response.toString());
         out.flush();
     }
 }

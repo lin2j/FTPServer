@@ -1,10 +1,10 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * @author jia
@@ -19,11 +19,11 @@ public class RetrCommand implements Command {
        String filePath = thread.getNowDir() + File.separator + data;
        File file = new File(filePath);
        if(!file.exists()){
-           out.println("220 File not exists");
+           out.println(FTPStateCode.FILE_NOT_FOUND);
            out.flush();
        }else{
            try{
-               out.println("150 Open ascii mode");
+               out.println(FTPStateCode.STATUS_OKAY.getMsg());
                out.flush();
                Socket socket = new Socket(thread.getTargetIP(), thread.getTargetPort());
                // 读取服务器文件的输出流
@@ -40,9 +40,9 @@ public class RetrCommand implements Command {
                fis.close();
                dataOut.close();
                socket.close();
-               out.println("220 Transfer complete ");
+               out.println(FTPStateCode.FILE_ACTION_COMPLETED.getMsg());
            } catch (Exception e){
-               out.println("220 Transmission interruption");
+               out.println(FTPStateCode.LOCAL_ERROR.getMsg());
            }
            out.flush();
        }

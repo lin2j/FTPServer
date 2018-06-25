@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.File;
@@ -16,16 +17,15 @@ public class MKDCommand implements Command {
     public void execute(String data, PrintWriter out, ControllerThread thread){
         String response = null;
         String filePath = thread.getNowDir() + File.separator + data;
-        String fail = "550 Create failed";
         File file = new File(filePath);
         try {
             if(file.createNewFile()){
                 response = "250 " + filePath;
             }else{
-                response = fail;
+                response = FTPStateCode.ACTION_NOT_TOKEN.getMsg();
             }
         } catch (IOException e) {
-            response = fail;
+            response = FTPStateCode.ACTION_NOT_TOKEN.getMsg();
         }
         out.println(response);
         out.flush();

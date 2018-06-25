@@ -21,7 +21,7 @@ public class CommandFactory {
             case "CWD"  : return new CwdCommand();
             case "STOR" : return new StoreCommand();
             case "XPWD" : return new PWDCommand();
-            case "XMKD"  : return new MKDCommand();
+            case "XMKD" : return new MKDCommand();
             case "DELE" : return new DELECommand();
             default : return null;
         }

@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
 import com.jia.thread.ControllerThread;
 
@@ -17,9 +18,9 @@ public class UserCommand implements Command {
         if(Share.users.containsKey(data)){
             ControllerThread.USER.set(data);
             thread.setNowDir(thread.getNowDir() + data);
-            response = "331 User exists, need a password";
+            response = FTPStateCode.USER_EXIST.getMsg();
         }else{
-            response = "501 Argument error";
+            response = FTPStateCode.ARGUMENT_ERROR.getMsg();
         }
         out.println(response);
         out.flush();

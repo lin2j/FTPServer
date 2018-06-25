@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
 import com.jia.thread.ControllerThread;
 
@@ -20,7 +21,6 @@ public class CwdCommand implements Command {
     public void execute(String data, PrintWriter out, ControllerThread thread) {
         // 上一级目录
         String towPoint = "..";
-        String okay = "250 Okay";
         String response = null;
         // 判断是不是返回上一级
         if(towPoint.equals(data)){
@@ -36,9 +36,9 @@ public class CwdCommand implements Command {
                 e.printStackTrace();
             }
             if(b){
-                response = "500 Permission denied";
+                response = FTPStateCode.PERMISSION_DENIED.getMsg();
             }else{
-                response = okay;
+                response = FTPStateCode.COMMAND_OKAY.getMsg();
                 thread.setNowDir(p);
             }
         }else {
@@ -48,9 +48,9 @@ public class CwdCommand implements Command {
             String targetDir = nowDir + data;
             File file = new File(targetDir);
             if (!file.exists()) {
-                response = "550 No such file or directory";
+                response = FTPStateCode.NO_SUCH_FILE_OR_DIRECTORY.getMsg();
             } else {
-                response = okay;
+                response = FTPStateCode.COMMAND_OKAY.getMsg();
                 thread.setNowDir(thread.getNowDir() + data);
             }
         }

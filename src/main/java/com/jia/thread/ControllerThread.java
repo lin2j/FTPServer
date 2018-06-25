@@ -4,6 +4,7 @@ import com.jia.command.Command;
 import com.jia.command.CommandFactory;
 import com.jia.command.PassCommand;
 import com.jia.command.UserCommand;
+import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
 
 import java.io.*;
@@ -92,15 +93,13 @@ public class ControllerThread extends Thread{
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             // 获得输出流
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-            // 服务器的响应信息
-            String response = null;
             // 客户端指令
             String commandStr = null;
             // 客户端指令按空格分割后的字符串数组
             String[] commandStrs = null;
             while(true) {
                 if (count == 0) {
-                    out.println("220 Server readiness");
+                    out.println(FTPStateCode.SERVER_READY.getMsg());
                     out.flush();
                     count++;
                 }
@@ -120,10 +119,10 @@ public class ControllerThread extends Thread{
                         }
                         command.execute(data, out, this);
                     }else{
-                        out.println("532 Not logged in");
+                        out.println(FTPStateCode.NOT_LOGGRD_IN.getMsg());
                     }
                 }else{
-                    out.println("502 Command not found");
+                    out.println(FTPStateCode.COMMAND_NOT_FOUND.getMsg());
                     out.flush();
                 }
             }

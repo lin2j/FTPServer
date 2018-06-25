@@ -1,5 +1,6 @@
 package com.jia.command;
 
+import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
 
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ public class PortCommand implements Command {
         // 记录 ip 和端口
         thread.setTargetIP(ip.toString());
         thread.setTargetPort(port);
-        out.println("200 Successfully");
+        out.println(FTPStateCode.SUCCESSFULLY.getMsg());
         out.flush();
     }
 }
