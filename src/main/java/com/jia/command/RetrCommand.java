@@ -28,17 +28,18 @@ public class RetrCommand implements Command {
                Socket socket = new Socket(thread.getTargetIP(), thread.getTargetPort());
                // 读取服务器文件的输出流
                FileInputStream fis = new FileInputStream(file);
-               BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+               BufferedInputStream bis = new BufferedInputStream(fis);
                // 发送数据的 socket 的输出流
-               PrintWriter dataOut = new PrintWriter(socket.getOutputStream());
+               BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
                // 判断输入流是否读完的标志
-               String s = null;
-               while((s = br.readLine()) != null){
-                    dataOut.println(s);
+               int a;
+               while((a = bis.read()) != -1){
+                   bos.write(a);
                }
-               dataOut.flush();
+               bos.flush();
+               bos.close();
+               bis.close();
                fis.close();
-               dataOut.close();
                socket.close();
                out.println(FTPStateCode.FILE_ACTION_COMPLETED.getMsg());
            } catch (Exception e){

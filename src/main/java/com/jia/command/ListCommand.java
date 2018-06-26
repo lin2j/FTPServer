@@ -21,7 +21,7 @@ public class ListCommand implements Command {
     public void execute(String data, PrintWriter out, ControllerThread thread) {
         StringBuilder fileInfo  = new StringBuilder();
         // 文件类型，文件夹或普通文件
-        Integer maxLength = 0;
+        Integer maxLength = 1;
         String fileType = null;
         String tab = "\t";
         // 算出文件的全包名
@@ -32,7 +32,9 @@ public class ListCommand implements Command {
         File[] files = file.listFiles();
         String[] fileNames = file.list();
         if(fileNames != null) {
-            maxLength = FileUtils.maxFileName(fileNames);
+            if(fileNames.length > 0) {
+                maxLength = FileUtils.maxFileName(fileNames);
+            }
         }
         fileInfo.append(StringUtils.format(maxLength, "Name")).append(tab).append("Type").append(tab).append("Size\n");
         if(files != null){
@@ -62,6 +64,7 @@ public class ListCommand implements Command {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+            out.println("");
         }
         out.println();
         out.flush();

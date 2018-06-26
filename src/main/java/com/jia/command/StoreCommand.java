@@ -21,22 +21,21 @@ public class StoreCommand implements Command {
             Socket socket = new Socket(thread.getTargetIP(), thread.getTargetPort());
             // socket 的数据输入流
             InputStreamReader dataIn = new InputStreamReader(socket.getInputStream(), "UTF-8");
-            BufferedReader br = new BufferedReader(dataIn);
+            BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
             // 要写入的文件
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             // 判断输入流是否读完
-            String s = null;
-            while((s = br.readLine()) != null){
-                bw.write(s);
-                bw.newLine();
+            int a;
+            while((a = bis.read()) != -1){
+                bos.write(a);
             }
-            bw.flush();
+            dataIn.close();
+            bos.flush();
+            bis.close();
+            bos.close();
+            socket.close();
             out.println(FTPStateCode.FILE_ACTION_COMPLETED.getMsg());
             out.flush();
-            dataIn.close();
-            br.close();
-            bw.close();
-            socket.close();
         } catch (IOException e) {
             out.println(FTPStateCode.LOCAL_ERROR.getMsg());
         }
