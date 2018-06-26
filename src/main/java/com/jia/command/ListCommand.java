@@ -2,11 +2,14 @@ package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
 import com.jia.thread.ControllerThread;
+import com.jia.utils.FileUtils;
+import com.jia.utils.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Formatter;
 
 /**
  * @author jia
@@ -16,16 +19,34 @@ import java.net.Socket;
 public class ListCommand implements Command {
     @Override
     public void execute(String data, PrintWriter out, ControllerThread thread) {
-
-        StringBuilder fileNames = new StringBuilder();
+        StringBuilder fileInfo  = new StringBuilder();
+        // 文件类型，文件夹或普通文件
+        Integer maxLength = 0;
+        String fileType = null;
+        String tab = "\t";
+        // 算出文件的全包名
         String userPath = thread.getNowDir();
         userPath = userPath + data ;
         File file = new File(userPath);
-        String[] fileList = file.list();
-        if(fileList != null) {
-            for (String fileName : fileList) {
-                fileNames.append(fileName);
-                fileNames.append("\n");
+        // 该目录下的所有文件（包括文件夹）
+        File[] files = file.listFiles();
+        String[] fileNames = file.list();
+        if(fileNames != null) {
+            maxLength = FileUtils.maxFileName(fileNames);
+        }
+        fileInfo.append(StringUtils.format(maxLength, "Name")).append(tab).append("Type").append(tab).append("Size\n");
+        if(files != null){
+            if(files.length > 0) {
+                for (File f : files) {
+                    if(f.isDirectory()){
+                        fileType = "dir";
+                    }else{
+                        fileType = "file";
+                    }
+                    fileInfo.append(StringUtils.format(maxLength,f.getName())).append(tab);
+                    fileInfo.append(fileType).append(tab);
+                    fileInfo.append(FileUtils.size(f)).append("\n");
+                }
             }
         }
 
@@ -36,7 +57,7 @@ public class ListCommand implements Command {
             Socket socket = new Socket(thread.getTargetIP(), thread.getTargetPort());
             socket.setSoTimeout(30000);
             PrintWriter dataOut = new PrintWriter(socket.getOutputStream());
-            dataOut.println(fileNames.toString());
+            dataOut.println(fileInfo.toString());
             dataOut.flush();
             socket.close();
         } catch (IOException e) {
