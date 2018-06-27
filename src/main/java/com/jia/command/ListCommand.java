@@ -1,7 +1,7 @@
 package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 import com.jia.utils.FileUtils;
 import com.jia.utils.StringUtils;
 
@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Formatter;
 
 /**
  * @author jia
@@ -18,7 +17,7 @@ import java.util.Formatter;
  **/
 public class ListCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         StringBuilder fileInfo  = new StringBuilder();
         // 文件类型，文件夹或普通文件
         Integer maxLength = 1;

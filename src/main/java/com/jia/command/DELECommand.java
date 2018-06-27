@@ -1,7 +1,7 @@
 package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  **/
 public class DELECommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         String response = null;
         File file = new File(thread.getNowDir() + File.separator + data);
         if(!file.exists()){

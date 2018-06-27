@@ -16,9 +16,7 @@ import java.net.SocketException;
  * @date 2018/6/21 15:27
  * 控制连接线程类
  **/
-public class ControllerThread extends Thread{
-
-    public static Integer count = 0;
+public class ControllerRunnable implements Runnable{
 
     private Socket socket = null;
 
@@ -79,7 +77,7 @@ public class ControllerThread extends Thread{
         this.socket = socket;
     }
 
-    public ControllerThread(Socket socket) {
+    public ControllerRunnable(Socket socket) {
         this.socket = socket;
     }
 

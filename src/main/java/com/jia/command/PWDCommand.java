@@ -1,6 +1,6 @@
 package com.jia.command;
 
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.PrintWriter;
 
@@ -10,7 +10,7 @@ import java.io.PrintWriter;
  **/
 public class PWDCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         String response = "257 " + thread.getNowDir();
         out.println(response);
         out.flush();

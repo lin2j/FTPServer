@@ -1,7 +1,7 @@
 package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,7 +14,7 @@ import java.net.Socket;
 public class RetrCommand implements Command {
 
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         // 要发送的文件
        String filePath = thread.getNowDir() + File.separator + data;
        File file = new File(filePath);

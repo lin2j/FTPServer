@@ -1,7 +1,7 @@
 package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,7 +13,7 @@ import java.net.Socket;
  **/
 public class StoreCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         out.println(FTPStateCode.STATUS_OKAY.getMsg());
         out.flush();
         File file = new File(thread.getNowDir() + File.separator + data);

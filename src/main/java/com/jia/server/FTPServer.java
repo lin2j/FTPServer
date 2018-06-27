@@ -1,9 +1,11 @@
 package com.jia.server;
 
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author jia
@@ -22,13 +24,15 @@ public class FTPServer {
     }
 
     public void listen() throws Exception{
+        // 创建一个固定大小的线程池
+        ExecutorService pool = Executors.newFixedThreadPool(5);
         Socket socket = null;
         // 监听连接
         while(true){
             // tcp 三次握手建立连接
             socket = serverSocket.accept();
-            ControllerThread ct = new ControllerThread(socket);
-            ct.start();
+            ControllerRunnable ct = new ControllerRunnable(socket);
+            pool.submit(ct);
         }
     }
 

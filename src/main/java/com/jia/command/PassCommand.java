@@ -2,7 +2,7 @@ package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -14,10 +14,10 @@ import java.io.PrintWriter;
  **/
 public class PassCommand implements Command {
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         StringBuilder response = new StringBuilder();
         // 获取该用户的密码
-        String user = ControllerThread.USER.get();
+        String user = ControllerRunnable.USER.get();
         String pass = Share.users.get(user);
         if(pass.equals(data)){
             Share.loginedUsers.put(user, pass);

@@ -2,7 +2,7 @@ package com.jia.command;
 
 import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class CwdCommand implements Command {
 
     @Override
-    public void execute(String data, PrintWriter out, ControllerThread thread) {
+    public void execute(String data, PrintWriter out, ControllerRunnable thread) {
         // 上一级目录
         String towPoint = "..";
         String response = null;

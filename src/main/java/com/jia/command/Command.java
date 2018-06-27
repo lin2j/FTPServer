@@ -1,6 +1,6 @@
 package com.jia.command;
 
-import com.jia.thread.ControllerThread;
+import com.jia.thread.ControllerRunnable;
 
 import java.io.PrintWriter;
 
@@ -17,5 +17,5 @@ public interface Command {
      * @param out 输出流
      * @param thread 命令控制线程
      */
-    void execute(String data, PrintWriter out, ControllerThread thread) ;
+    void execute(String data, PrintWriter out, ControllerRunnable thread) ;
 }
