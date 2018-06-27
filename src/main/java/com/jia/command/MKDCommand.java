@@ -19,12 +19,12 @@ public class MKDCommand implements Command {
         String filePath = thread.getNowDir() + File.separator + data;
         File file = new File(filePath);
         try {
-            if(file.createNewFile()){
+            if(file.mkdirs()){
                 response = "250 " + filePath;
             }else{
                 response = FTPStateCode.ACTION_NOT_TOKEN.getMsg();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             response = FTPStateCode.ACTION_NOT_TOKEN.getMsg();
         }
         out.println(response);
