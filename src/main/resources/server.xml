@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 这个文件是存放用户信息的 -->
 <root>
-    <path>/null</path>
+	<path>E:\GitRepo\FTP</path>
     <users>
         <user>
-            <name>win</name>
+            <name>quan</name>
             <pass>777</pass>
         </user>
         <user>
             <name>jia</name>
             <pass>666</pass>
+        </user>
+        <user>
+            <name>wen</name>
+            <pass>888</pass>
+        </user>
+        <user>
+            <name>lin</name>
+            <pass>999</pass>
         </user>
     </users>
 </root>

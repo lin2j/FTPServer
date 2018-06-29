@@ -40,6 +40,9 @@ public class Share {
         Path path = Paths.get(projRootPath);
         try{
             // 读取server.xml文件, server.xml 文件放在项目同级目录下
+            // 导出为jar包时，直接用根目录即可
+//            File serverXml = new File(projRootPath + "/server.xml");
+            // IDE里要用根目录的上级目录
             String pathPar = path.getParent().toString();
             File serverXml = new File(pathPar + "/server.xml");
             SAXBuilder builder = new SAXBuilder();
