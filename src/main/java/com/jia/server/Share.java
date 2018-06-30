@@ -51,8 +51,7 @@ public class Share {
 
             // 初始化登陆后用户所在的目录
             nowDir.append(root.getChildText("path"));
-            nowDir.append("/FtpDir");
-            nowDir.append("/");
+            nowDir.append("/FtpDir/");
             File ftpDir = new File(nowDir.toString());
             if(!ftpDir.exists()){
                 ftpDir.mkdir();
@@ -63,7 +62,6 @@ public class Share {
             List<Element> userEC = userE.getChildren("user");
             String name = null;
             String password = null;
-            System.out.println("Initial user list...");
             for (Element user : userEC){
                 name = user.getChildText("name");
                 password = user.getChildText("pass");
