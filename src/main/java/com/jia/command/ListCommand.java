@@ -40,9 +40,9 @@ public class ListCommand implements Command {
             if(files.length > 0) {
                 for (File f : files) {
                     if(f.isDirectory()){
-                        fileType = "dir";
+                        fileType = "<DIR>";
                     }else{
-                        fileType = "file";
+                        fileType = "FILE";
                     }
                     fileInfo.append(StringUtils.format(maxLength,f.getName())).append(tab);
                     fileInfo.append(fileType).append(tab);

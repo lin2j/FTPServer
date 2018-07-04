@@ -1,9 +1,6 @@
 package com.jia.thread;
 
-import com.jia.command.Command;
-import com.jia.command.CommandFactory;
-import com.jia.command.PassCommand;
-import com.jia.command.UserCommand;
+import com.jia.command.*;
 import com.jia.myenum.FTPStateCode;
 import com.jia.server.Share;
 
@@ -137,7 +134,9 @@ public class ControllerRunnable implements Runnable{
      * @return 不是USER 和 PASS 命令即为登录，返回 true， 否则返回 false
      */
     private boolean loginedValiate(Command command){
-        if(command instanceof UserCommand || command instanceof PassCommand){
+        if(command instanceof UserCommand
+                || command instanceof PassCommand
+                || command instanceof QuitCommand){
             return true;
         }else{
             return isLogined;
